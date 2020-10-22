@@ -1,4 +1,3 @@
-const data = require('../data');
 const pool = require('../db');
 
 async function getUsers() {
@@ -10,11 +9,11 @@ async function getUserById( id) {
     const [result] = await pool.query('SELECT * FROM prestiti WHERE id=?', [id]);
     return result;
 };
-function addUser({name}) {
-    //con push il nuovo elemento è inserito in coda, unshift inserisce il nuovo elemento all'inizio dell'array
-   const newuser =  {name, user_id:data.users.length +1};
-    data.users.push(newuser);
-    return newuser;
+async function addUser({name}) {
+    const data_inizio = new Date();
+    const [result] = await pool.query('INSERT INTO prestiti (libro_id, nome, cognome, data_inizio, data_fine) values (?, ?, ?, ?, ?)',
+    [libro_id, nome, cognome, data_inizio, data_fine]);
+    return {id: result.insertId, libro_id, nome, cognome, data_inizio, data_fine};
 };
 
 

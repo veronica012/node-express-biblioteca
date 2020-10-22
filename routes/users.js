@@ -26,7 +26,7 @@ router.get('/', async(req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const result = await getUserById(req.params.user_id);
+        const result = await getUserById(req.params.id);
         res.status(result? 200: 404).json(result? 200: null)
     } catch (e) {
         res.status(500).send(e.toString());
@@ -34,9 +34,14 @@ router.get('/:id', async (req, res) => {
 });
 
 //la rotta in post permette di aggiungere nuovi elementi
-router.post('/', function(req, res){
-    console.log(req.body);
-    res.json(addUser(req.body));
-});
+router.post('/', async (req, res)=>{
+    try{
+        const result = await addUser(req.body.name);
+        res.json(result);
+    }catch (e) {
+        res.status(500).send(e.toString());
+    }
+ 
+ });
 
 module.exports = router;
