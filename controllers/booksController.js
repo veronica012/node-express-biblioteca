@@ -22,13 +22,14 @@ function addBook({title, autore, given}) {
     return newbook;
 };
 function updateBook(id, updatedBook) {
-    const oldbook = getBookById(id);
-    if(oldbook){
+    const idx = data.books.findIndex(book => book.id == id);
+  
+    if(idx != -1){
 
-        data.books[id] = {...oldbook, ...updatedBook}; //conserva i vecchi parametri e permette di aggiornarli salvando il book aggiornato
-        return data.books[id];
+        data.books[idx] = {...data.books[idx], ...updatedBook}; //conserva i vecchi parametri e permette di aggiornarli salvando il book aggiornato
+        return data.books[idx];
     };
-    
+    return false;
 };
 
 module.exports = {
