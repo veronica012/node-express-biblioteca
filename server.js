@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const ehb = require('express-handlebars');
+app.engine('.hbs', ehb({extname: '.hbs'}));
+app.set('view-engine', '.hbs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 const booksRoutes = require('./routes/books');
