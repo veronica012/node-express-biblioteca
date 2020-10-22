@@ -21,10 +21,20 @@ function addBook({title, autore, given}) {
     data.books.push(newbook);
     return newbook;
 };
+function updateBook(id, updatedBook) {
+    const oldbook = getBookById(id);
+    if(oldbook){
+
+        data.books[id] = {...oldbook, ...updatedBook}; //conserva i vecchi parametri e permette di aggiornarli salvando il book aggiornato
+        return data.books[id];
+    };
+    
+};
 
 module.exports = {
     getBooks,
     getBookById,
     deleteBook,
-    addBook
+    addBook,
+    updateBook
 }
