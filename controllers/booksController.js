@@ -1,35 +1,34 @@
 const data = require('../data');
+const pool = require('../db');
 
-function getBooks() {
-    return data.books;
-};
-function getBookById( id) {
-    return data.books.find(book => book.id == id);
-};
-function deleteBook( id) {
-    const idx = data.books.findIndex(book => book.id == id);
-    if(idx > -1) {
-      const elementes =  data.books.splice(idx, 1);
-        return 1;
-    }
-    return 0;
+async function getBooks(){
+    const [result] = await pool.query('SELECT * FROM libri');
+    return result;
 };
 
-function addBook({title, autore, given}) {
+async function getBookById(id){
+    const[result] = await pool.query('SELECT * FROM libri WHERE id=?', [id]);
+    return result[0];
+};
+
+async function deleteBook(id) {
+    const [result] = await pool.query('DELETE * FROM libri WHERE id=?', [id])
+    return result.affectedRows;
+};
+
+async function addBook({titolo, autore, prestato}) {
     //con push il nuovo elemento è inserito in coda, unshift inserisce il nuovo elemento all'inizio dell'array
-    const newbook = {title, autore, given}
-    data.books.push(newbook);
-    return newbook;
+    const created_at = new Date();
+    const [result] = await pool.query('INSERT INTO libri (titolo, autore, prestato, created_at) values (?,?,?,?' [titolo, autore, 0, created_at]);
+    return {id: result.insertId, titolo, autore, created_at};
 };
-function updateBook(id, updatedBook) {
-    const idx = data.books.findIndex(book => book.id == id);
-  
-    if(idx != -1){
 
-        data.books[idx] = {...data.books[idx], ...updatedBook}; //conserva i vecchi parametri e permette di aggiornarli salvando il book aggiornato
-        return data.books[idx];
-    };
-    return false;
+async function updateBook(id, {titolo, autore, prestato}) {
+    console.log(titolo);
+    const updated_at = new Date;
+    const [result] = await pool.query('UPDATE libri SET titolo =?, autore=?, updated_at=?, prestato=? WHERE id=?', [titolo, autore, updated_at, prestato, id]);
+    return getBookById(id);
+    
 };
 
 module.exports = {
