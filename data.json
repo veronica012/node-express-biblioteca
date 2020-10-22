@@ -4,7 +4,8 @@
             "id": 1,
             "title": "La Divina Commedia",
             "autore": "Dante Alighieri",
-            "given" : true
+            "given" : true,
+            "user_id": 2
 
         },
         {
@@ -12,18 +13,21 @@
             "title": "I Promessi Sposi",
             "autore": "Alessandro manzoni",
             "given" : false
+
         },
         {
             "id": 3,
             "title": "Cuore",
             "autore": "Edmondo De Amicis",
-            "given" : true
+            "given" : true,
+            "user_id": 3
         },
         {
             "id": 4,
             "title": "L'Alchimista",
             "autore": "Paulo Coelho",
-            "given" : false
+            "given" : true,
+            "user_id": 3
         },
         {
             "id": 5,
@@ -31,5 +35,21 @@
             "autore": "Italo Svevo",
             "given" : false
         }
+    ],
+
+    "users": [
+        {
+            "user_id": 1,
+            "name": "Jane"
+        },
+        {
+            "user_id": 2,
+            "name": "Jenny"
+        },
+        {
+            "user_id": 3,
+            "name": "Francis"
+        }
     ]
+    
 }
