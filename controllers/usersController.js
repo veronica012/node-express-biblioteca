@@ -1,10 +1,14 @@
 const data = require('../data');
+const pool = require('../db');
 
-function getUsers() {
-    return data.users;
+async function getUsers() {
+  const [result] = await pool.query('SELECT * FROM prestiti');
+  return result;
 };
-function getUserById( id) {
-    return data.users.find(user => user.id == id);
+
+async function getUserById( id) {
+    const [result] = await pool.query('SELECT * FROM prestiti WHERE id=?', [id]);
+    return result;
 };
 function addUser({name}) {
     //con push il nuovo elemento è inserito in coda, unshift inserisce il nuovo elemento all'inizio dell'array

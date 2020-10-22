@@ -14,11 +14,23 @@ const {getUsers, getUserById, addUser} = require('../controllers/usersController
 // }); esempio!!!
 
 //C R U D
-router.get('/', function(req, res){
-    res.json(getUsers());
+router.get('/', async(req, res) => {
+
+    try {
+        const result = await getUsers();
+        res.json(result);
+    } catch (e) {
+        res.status(500).send(e.toString());
+    }
 });
-router.get('/:id',function(req, res){
-    res.json(getUserById(req.params.user_id));
+
+router.get('/:id', async (req, res) => {
+    try {
+        const result = await getUserById(req.params.user_id);
+        res.status(result? 200: 404).json(result? 200: null)
+    } catch (e) {
+        res.status(500).send(e.toString());
+    }
 });
 
 //la rotta in post permette di aggiungere nuovi elementi
