@@ -1,14 +1,26 @@
 {
-  "name": "biblioteca-node-express",
+  "name": "express-biblioteca",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "node-express-biblioteca",
+  "main": "db.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/veronica012/node-express-biblioteca.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+  "bugs": {
+    "url": "https://github.com/veronica012/node-express-biblioteca/issues"
+  },
+  "homepage": "https://github.com/veronica012/node-express-biblioteca#readme"
 }
