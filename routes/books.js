@@ -18,7 +18,8 @@ router.get('/', function(req, res){
     res.json(getBooks());
 });
 router.get('/:id', function(req, res){
-    res.json(getBookById(req.params.id));
+    const result = getBookById(req.params.id);
+    res.status(result? 200: 404).json(result? result: null);
 });
 router.delete('/:id', function(req, res){
     const deleted = deleteBook(req.params.id);
