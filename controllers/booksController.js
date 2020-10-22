@@ -15,8 +15,16 @@ function deleteBook( id) {
     return 0;
 };
 
+function addBook({title, autore, given}) {
+    //con push il nuovo elemento è inserito in coda, unshift inserisce il nuovo elemento all'inizio dell'array
+    const newbook = {title, autore, given}
+    data.books.push(newbook);
+    return newbook;
+};
+
 module.exports = {
     getBooks,
     getBookById,
-    deleteBook
+    deleteBook,
+    addBook
 }
