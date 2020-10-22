@@ -17,5 +17,6 @@ function deleteBook( id) {
 
 module.exports = {
     getBooks,
-    getBookById
+    getBookById,
+    deleteBook
 }
