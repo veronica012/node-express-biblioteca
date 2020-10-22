@@ -8,16 +8,16 @@ const logger = (req, res, next) => {
 };
 
 //le rotte possono essere concatenate
-router.all('*', function(req, res, next){
-    console.log('All middleware');
-    next();
-});
+// router.all('*', function(req, res, next){
+//     console.log('All middleware');
+//     next();
+// });
 
 //C R U D
 router.get('/', function(req, res){
     res.json(getBooks());
 });
-router.get('/:id', logger, function(req, res){
+router.get('/:id', function(req, res){
     res.json(getBookById(req.params.id));
 });
 router.delete('/:id', function(req, res){
