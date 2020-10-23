@@ -1,40 +1,37 @@
-const data = require('../data');
 const pool = require('../db');
 
-async function getBooks(){
-    const [result] = await pool.query('SELECT * FROM libri');
+async function  getBooks() {
+    const [result,] = await pool.query('SELECT * FROM books');
     return result;
-};
+}
 
-async function getBookById(id){
-    const[result] = await pool.query('SELECT * FROM libri WHERE id=?', [id]);
-    return result[0];
-};
-
-async function deleteBook(id) {
-    const [result] = await pool.query('DELETE * FROM libri WHERE id=?', [id])
-    return result.affectedRows;
-};
-
-async function addBook({titolo, autore, prestato}) {
-    //con push il nuovo elemento è inserito in coda, unshift inserisce il nuovo elemento all'inizio dell'array
+async function getBookById( id) {
+    const [result,] = await pool.query('SELECT * FROM books where id=?',[id]);
+     return result[0];
+}
+async function deleteBook( id) {
+    const [result,] = await pool.query('DELETE FROM books where id=?',[id]);
+    return result.affectedRows ;
+}
+async function addBook({title, author, borrowed}){
     const created_at = new Date();
-    const [result] = await pool.query('INSERT INTO libri (titolo, autore, prestato, created_at) values (?,?,?,?' [titolo, autore, 0, created_at]);
-    return {id: result.insertId, titolo, autore, created_at};
-};
+    const [result,] = await pool.query('INSERT INTO books (title, author, borrowed, created_at) values (?, ?, ?, ?)',
+    [title, author, borrowed, created_at]);
 
-async function updateBook(id, {titolo, autore, prestato}) {
-    console.log(titolo);
-    const updated_at = new Date;
-    const [result] = await pool.query('UPDATE libri SET titolo =?, autore=?, updated_at=?, prestato=? WHERE id=?', [titolo, autore, updated_at, prestato, id]);
+    return {id: result.insertId, title, author, created_at, };
+}
+async function updateBook(id, {title, author, borrowed}){
+    console.log(title);
+    borrowed = borrowed || 0;
+    const updated_at = new Date();
+    const [result,] = await pool.query('UPDATE books SET title =?, author=?, updated_at=?, borrowed= ? where id=?',[title, author, updated_at, borrowed, id]);
     return getBookById(id);
-    
-};
 
+}
 module.exports = {
     getBooks,
     getBookById,
     deleteBook,
     addBook,
     updateBook
-}
+};
